@@ -1,0 +1,481 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: auto; /* DIUBAH: smooth scroll → auto, menghilangkan lag scroll */
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #dde5d4;
+    color: #2d3048;
+    min-height: 100vh;
+  }
+  .dark body { background: #13162a; color: #f0f0ec; }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 99px; }
+  .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.10); }
+}
+
+@layer components {
+
+  /* ── Liquid Glass Card ────────────────────────────────── */
+  .glass-card {
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 10%, rgba(255,255,255,0.55) 0%, transparent 70%),
+      linear-gradient(170deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.28) 100%);
+    backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    border-top: 1.5px solid rgba(255,255,255,0.85);
+    border-left: 1.5px solid rgba(255,255,255,0.70);
+    border-right: 1px solid rgba(255,255,255,0.30);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    border-radius: 1.25rem;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.70),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      inset 2px 0 0 rgba(255,255,255,0.22),
+      0 8px 32px rgba(0,0,0,0.10),
+      0 2px 8px rgba(0,0,0,0.07);
+    /* OPTIMASI: GPU layer + isolate stacking context */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    isolation: isolate;
+    contain: layout style;
+  }
+  .dark .glass-card {
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 10%, rgba(255,255,255,0.08) 0%, transparent 70%),
+      linear-gradient(170deg, rgba(30,33,56,0.62) 0%, rgba(30,33,56,0.38) 50%, rgba(30,33,56,0.52) 100%);
+    border-top: 1.5px solid rgba(255,255,255,0.12);
+    border-left: 1.5px solid rgba(255,255,255,0.08);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.06),
+      inset 0 -1px 0 rgba(0,0,0,0.25),
+      0 8px 32px rgba(0,0,0,0.28),
+      0 2px 8px rgba(0,0,0,0.18);
+  }
+
+  /* ── Sidebar ──────────────────────────────────────────── */
+  .glass-sidebar {
+    background:
+      radial-gradient(ellipse 80% 30% at 50% 0%, rgba(255,255,255,0.50) 0%, transparent 70%),
+      linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.28) 100%);
+    backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    border-right: 1.5px solid rgba(255,255,255,0.70);
+    box-shadow:
+      inset -1px 0 0 rgba(255,255,255,0.22),
+      inset 0 2px 0 rgba(255,255,255,0.55),
+      2px 0 24px rgba(0,0,0,0.08),
+      1px 0 6px rgba(0,0,0,0.05);
+    /* OPTIMASI: GPU layer untuk sidebar yang fixed */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .dark .glass-sidebar {
+    background:
+      radial-gradient(ellipse 80% 30% at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 70%),
+      linear-gradient(180deg, rgba(19,22,42,0.82) 0%, rgba(19,22,42,0.72) 100%);
+    border-right: 1.5px solid rgba(255,255,255,0.07);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.04),
+      2px 0 24px rgba(0,0,0,0.20);
+  }
+
+  /* ── Topbar ───────────────────────────────────────────── */
+  .glass-topbar {
+    background:
+      radial-gradient(ellipse 60% 80% at 50% 0%, rgba(255,255,255,0.55) 0%, transparent 70%),
+      linear-gradient(180deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.28) 100%);
+    backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    border-bottom: 1.5px solid rgba(255,255,255,0.70);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.70),
+      inset 0 -1px 0 rgba(0,0,0,0.04),
+      0 4px 16px rgba(0,0,0,0.07),
+      0 1px 4px rgba(0,0,0,0.05);
+    /* OPTIMASI: GPU layer untuk topbar yang fixed/sticky */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .dark .glass-topbar {
+    background:
+      radial-gradient(ellipse 60% 80% at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 70%),
+      linear-gradient(180deg, rgba(19,22,42,0.82) 0%, rgba(19,22,42,0.70) 100%);
+    border-bottom: 1.5px solid rgba(255,255,255,0.07);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.04),
+      inset 0 -1px 0 rgba(0,0,0,0.20),
+      0 4px 16px rgba(0,0,0,0.18);
+  }
+
+  /* ── Stat card ────────────────────────────────────────── */
+  .glass-stat {
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 10%, rgba(255,255,255,0.55) 0%, transparent 70%),
+      linear-gradient(170deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.28) 100%);
+    backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    border-top: 1.5px solid rgba(255,255,255,0.85);
+    border-left: 1.5px solid rgba(255,255,255,0.70);
+    border-right: 1px solid rgba(255,255,255,0.30);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    border-radius: 1.25rem;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.70),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      inset 2px 0 0 rgba(255,255,255,0.22),
+      0 4px 16px rgba(0,0,0,0.08),
+      0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    /* OPTIMASI: GPU layer + isolate stacking context */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    isolation: isolate;
+    contain: layout style;
+  }
+  .glass-stat:hover {
+    transform: translateY(-2px) translateZ(0); /* DIUBAH: tetap di GPU layer saat hover */
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.75),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      inset 2px 0 0 rgba(255,255,255,0.25),
+      0 10px 28px rgba(0,0,0,0.12),
+      0 3px 8px rgba(0,0,0,0.08);
+  }
+  .dark .glass-stat {
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 10%, rgba(255,255,255,0.08) 0%, transparent 70%),
+      linear-gradient(170deg, rgba(30,33,56,0.62) 0%, rgba(30,33,56,0.38) 50%, rgba(30,33,56,0.52) 100%);
+    border-top: 1.5px solid rgba(255,255,255,0.12);
+    border-left: 1.5px solid rgba(255,255,255,0.08);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.06),
+      inset 0 -1px 0 rgba(0,0,0,0.25),
+      0 4px 16px rgba(0,0,0,0.22),
+      0 1px 4px rgba(0,0,0,0.14);
+  }
+
+  /* ── Nav active ───────────────────────────────────────── */
+  .nav-active {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 10%, rgba(255,255,255,0.55) 0%, transparent 70%),
+      linear-gradient(170deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.28) 100%);
+    border-top: 1.5px solid rgba(255,255,255,0.85);
+    border-left: 1.5px solid rgba(255,255,255,0.65);
+    border-right: 1px solid rgba(255,255,255,0.28);
+    border-bottom: 1px solid rgba(255,255,255,0.22);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.70),
+      inset 0 -1px 0 rgba(0,0,0,0.04),
+      0 2px 10px rgba(0,0,0,0.08),
+      0 1px 3px rgba(0,0,0,0.05);
+  }
+  .dark .nav-active {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 10%, rgba(255,255,255,0.06) 0%, transparent 70%),
+      rgba(255,255,255,0.08);
+    border-top: 1.5px solid rgba(255,255,255,0.12);
+    border-left: 1.5px solid rgba(255,255,255,0.08);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.06),
+      0 2px 10px rgba(0,0,0,0.20);
+  }
+
+  /* ── Glass input ──────────────────────────────────────── */
+  .glass-input {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.45) 0%, transparent 70%),
+      rgba(255,255,255,0.38);
+    border-top: 1.5px solid rgba(255,255,255,0.80);
+    border-left: 1.5px solid rgba(255,255,255,0.65);
+    border-right: 1px solid rgba(255,255,255,0.28);
+    border-bottom: 1px solid rgba(255,255,255,0.22);
+    backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    border-radius: 0.75rem;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.65),
+      inset 0 -1px 0 rgba(0,0,0,0.04);
+    transition: all 0.2s ease;
+    /* OPTIMASI: GPU layer */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .glass-input:focus {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.58) 0%, transparent 70%),
+      rgba(255,255,255,0.55);
+    border-top: 1.5px solid rgba(255,255,255,0.95);
+    border-left: 1.5px solid rgba(255,255,255,0.80);
+    border-right: 1px solid rgba(255,255,255,0.40);
+    border-bottom: 1px solid rgba(255,255,255,0.35);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.80),
+      inset 0 -1px 0 rgba(0,0,0,0.04),
+      0 0 0 3px rgba(45,48,72,0.07);
+    outline: none;
+  }
+  .dark .glass-input {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.06) 0%, transparent 70%),
+      rgba(255,255,255,0.05);
+    border-top: 1.5px solid rgba(255,255,255,0.12);
+    border-left: 1.5px solid rgba(255,255,255,0.09);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.05),
+      inset 0 -1px 0 rgba(0,0,0,0.20);
+    color: #f0f0ec;
+  }
+  .dark .glass-input:focus {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.08) 0%, transparent 70%),
+      rgba(255,255,255,0.09);
+    border-top: 1.5px solid rgba(255,255,255,0.18);
+    border-left: 1.5px solid rgba(255,255,255,0.14);
+    border-right: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.07),
+      0 0 0 3px rgba(255,255,255,0.04);
+  }
+
+  /* ── Buttons ──────────────────────────────────────────── */
+  .btn-glass {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 10%, rgba(255,255,255,0.55) 0%, transparent 70%),
+      linear-gradient(170deg, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.28) 100%);
+    border-top: 1.5px solid rgba(255,255,255,0.85);
+    border-left: 1.5px solid rgba(255,255,255,0.70);
+    border-right: 1px solid rgba(255,255,255,0.30);
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    -webkit-backdrop-filter: blur(24px) saturate(1.6) brightness(1.06);
+    border-radius: 0.75rem;
+    transition: all 0.15s ease;
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.70),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      inset 2px 0 0 rgba(255,255,255,0.22),
+      0 2px 8px rgba(0,0,0,0.08),
+      0 1px 3px rgba(0,0,0,0.05);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* OPTIMASI: GPU layer */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .btn-glass:hover {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 10%, rgba(255,255,255,0.68) 0%, transparent 70%),
+      linear-gradient(170deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.20) 50%, rgba(255,255,255,0.38) 100%);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.80),
+      inset 0 -1px 0 rgba(0,0,0,0.06),
+      inset 2px 0 0 rgba(255,255,255,0.28),
+      0 6px 18px rgba(0,0,0,0.12),
+      0 2px 6px rgba(0,0,0,0.07);
+    transform: translateY(-1px) translateZ(0); /* DIUBAH: tetap di GPU layer */
+  }
+  .btn-glass:active {
+    transform: translateY(0) translateZ(0); /* DIUBAH: tetap di GPU layer */
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.55),
+      inset 0 2px 4px rgba(0,0,0,0.06),
+      0 1px 3px rgba(0,0,0,0.06);
+  }
+  .dark .btn-glass {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 10%, rgba(255,255,255,0.06) 0%, transparent 70%),
+      rgba(255,255,255,0.06);
+    border-top: 1.5px solid rgba(255,255,255,0.12);
+    border-left: 1.5px solid rgba(255,255,255,0.09);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.05),
+      inset 0 -1px 0 rgba(0,0,0,0.20),
+      0 2px 8px rgba(0,0,0,0.18);
+  }
+  .dark .btn-glass:hover {
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 10%, rgba(255,255,255,0.09) 0%, transparent 70%),
+      rgba(255,255,255,0.10);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,0.07),
+      inset 0 -1px 0 rgba(0,0,0,0.22),
+      0 6px 18px rgba(0,0,0,0.26);
+  }
+
+  .btn-primary {
+    background: #2d3048;
+    color: #f0f0ec;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(45,48,72,0.22), inset 0 1px 0 rgba(255,255,255,0.06);
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* OPTIMASI: GPU layer */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .btn-primary:hover {
+    background: #1e2138;
+    box-shadow: 0 4px 14px rgba(45,48,72,0.30);
+    transform: translateY(-1px) translateZ(0); /* DIUBAH: tetap di GPU layer */
+  }
+  .btn-primary:active {
+    transform: translateY(0) translateZ(0); /* DIUBAH: tetap di GPU layer */
+  }
+  .dark .btn-primary { background: #E07A5F; box-shadow: 0 2px 8px rgba(224,122,95,0.28); }
+  .dark .btn-primary:hover { background: #c8614a; box-shadow: 0 4px 14px rgba(224,122,95,0.36); }
+
+  /* ── Background blobs ─────────────────────────────────── */
+  .bg-blob {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    /* OPTIMASI: GPU layer untuk blob agar tidak ganggu scroll */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .bg-blob::before {
+    content: '';
+    position: absolute;
+    width: 65vw; height: 65vw;
+    top: -20vw; right: -15vw;
+    background: radial-gradient(circle, rgba(130,160,100,0.40) 0%, rgba(130,160,100,0.10) 50%, transparent 72%);
+    border-radius: 58% 42% 54% 46% / 44% 54% 42% 58%;
+    animation: blob 14s ease-in-out infinite;
+    /* OPTIMASI: promote pseudo-element ke GPU layer sendiri */
+    will-change: transform, border-radius;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .bg-blob::after {
+    content: '';
+    position: absolute;
+    width: 55vw; height: 55vw;
+    bottom: -18vw; left: -12vw;
+    background: radial-gradient(circle, rgba(86,204,242,0.22) 0%, rgba(86,204,242,0.05) 55%, transparent 72%);
+    border-radius: 48% 52% 42% 58% / 55% 42% 58% 48%;
+    animation: blob 17s ease-in-out infinite 5s;
+    /* OPTIMASI: promote pseudo-element ke GPU layer sendiri */
+    will-change: transform, border-radius;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .dark .bg-blob::before {
+    background: radial-gradient(circle, rgba(45,48,72,0.85) 0%, transparent 72%);
+  }
+  .dark .bg-blob::after {
+    background: radial-gradient(circle, rgba(86,204,242,0.07) 0%, transparent 72%);
+  }
+
+  .bg-blob-extra {
+    position: fixed;
+    width: 50vw; height: 50vw;
+    top: 35%; left: 28%;
+    background: radial-gradient(circle, rgba(242,153,74,0.16) 0%, rgba(242,153,74,0.04) 55%, transparent 72%);
+    border-radius: 44% 56% 58% 42% / 58% 42% 56% 44%;
+    animation: blob 20s ease-in-out infinite 9s;
+    pointer-events: none;
+    z-index: 0;
+    /* OPTIMASI: GPU layer untuk blob extra */
+    will-change: transform, border-radius;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  .dark .bg-blob-extra {
+    background: radial-gradient(circle, rgba(224,122,95,0.06) 0%, transparent 72%);
+  }
+
+  /* ── Scrollbar ────────────────────────────────────────── */
+  .scrollbar-thin { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.10) transparent; }
+  .dark .scrollbar-thin { scrollbar-color: rgba(255,255,255,0.07) transparent; }
+
+  /* ── Badge variants ───────────────────────────────────── */
+  .badge-fraud   { background: rgba(224,122,95,0.14); color: #b85a40; border: 1px solid rgba(224,122,95,0.22); border-radius: 0.5rem; }
+  .badge-review  { background: rgba(242,153,74,0.14); color: #a86a2a; border: 1px solid rgba(242,153,74,0.22); border-radius: 0.5rem; }
+  .badge-safe    { background: rgba(111,207,151,0.14); color: #2e7a50; border: 1px solid rgba(111,207,151,0.22); border-radius: 0.5rem; }
+  .badge-neutral { background: rgba(0,0,0,0.05); color: #6b6560; border: 1px solid rgba(0,0,0,0.08); border-radius: 0.5rem; }
+  .dark .badge-fraud   { color: #E07A5F; background: rgba(224,122,95,0.12); }
+  .dark .badge-review  { color: #F2994A; background: rgba(242,153,74,0.12); }
+  .dark .badge-safe    { color: #6FCF97; background: rgba(111,207,151,0.12); }
+  .dark .badge-neutral { background: rgba(255,255,255,0.07); color: #a0998e; border-color: rgba(255,255,255,0.09); }
+}
+
+/* ── Keyframes ──────────────────────────────────────────── */
+@keyframes blob {
+  0%,100% { transform: translate(0,0) scale(1) translateZ(0); border-radius: 58% 42% 54% 46% / 44% 54% 42% 58%; }
+  25%  { transform: translate(3%,5%) scale(1.03) translateZ(0); border-radius: 48% 52% 46% 54% / 54% 46% 52% 48%; }
+  50%  { transform: translate(-2%,3%) scale(0.97) translateZ(0); border-radius: 44% 56% 58% 42% / 42% 58% 44% 56%; }
+  75%  { transform: translate(4%,-2%) scale(1.02) translateZ(0); border-radius: 52% 48% 50% 50% / 50% 50% 54% 46%; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px) translateZ(0); }
+  to   { opacity: 1; transform: translateY(0) translateZ(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px) translateZ(0); }
+  to   { opacity: 1; transform: translateY(0) translateZ(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes pulseSoft {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ── Skeleton ───────────────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.35) 25%,
+    rgba(255,255,255,0.60) 50%,
+    rgba(255,255,255,0.35) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+  border-radius: 0.5rem;
+}
+.dark .skeleton {
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 75%
+  );
+  background-size: 200% 100%;
+}

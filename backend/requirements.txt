@@ -1,0 +1,41 @@
+# ── Web framework ──────────────────────────────────────────────────────────────
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9          # form-encoded login (OAuth2PasswordRequestForm)
+httpx==0.27.0                    # async HTTP client (tests, health checks)
+
+# ── Database ───────────────────────────────────────────────────────────────────
+sqlalchemy==2.0.30               # ORM + async core
+asyncpg==0.29.0                  # async PostgreSQL driver (SQLAlchemy async engine)
+psycopg2-binary==2.9.9           # sync driver — used by Alembic + training thread
+alembic==1.13.1                  # database migrations
+
+# ── Redis ──────────────────────────────────────────────────────────────────────
+redis[asyncio]==5.0.4            # async Redis client (includes hiredis)
+
+# ── Authentication ────────────────────────────────────────────────────────────
+PyJWT==2.8.0                     # JWT encode/decode
+bcrypt==4.1.3                    # password hashing (work factor 12)
+python-jose[cryptography]==3.3.0 # optional: kept for compatibility
+
+# ── Pydantic & settings ────────────────────────────────────────────────────────
+pydantic==2.7.1                  # v2 — data validation
+pydantic-settings==2.3.0         # BaseSettings with .env support
+
+# ── ML / Data ──────────────────────────────────────────────────────────────────
+joblib==1.4.2                    # model serialization
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.6.1
+
+# ── Logging ────────────────────────────────────────────────────────────────────
+python-json-logger==2.0.7        # JSON structured logging (FraudShieldJSONFormatter)
+
+# ── Dev / Testing ──────────────────────────────────────────────────────────────
+pytest==8.2.0
+pytest-asyncio==0.23.7
+pytest-cov==5.0.0
+# ── Real-Time Streaming ────────────────────────────────────────────────────────
+aiokafka==0.10.0                 # async Kafka producer/consumer (optional; falls back to Redis)
+aio-pika==9.4.0                  # async RabbitMQ (alternative broker, optional)
+websockets==12.0                 # WebSocket protocol support

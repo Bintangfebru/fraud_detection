@@ -1,0 +1,83 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+venv/
+.venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+
+# Node
+node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+
+# Environment
+.env
+.env.local
+.env.*.local
+backend/.env.local
+frontend/.env
+frontend/.env.local
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+backend/logs/
+
+# ML artifacts
+backend/trained_models/
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.onnx
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+dump.sql
+
+# Alembic (auto-generated, not handwritten)
+backend/migrations/versions/*.pyc
+
+# Docker
+.dockerignore
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Temporary / test output
+tmp/
+temp/
+.temp/
+backend/data/results/
